@@ -9,6 +9,38 @@
 <style>
 body,h1,h2,h3,h4,h5, h6 {font-family: "Raleway", sans-serif}
 
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+#id_red {
+color:red;
+}
+
 h4 {font-size: 16px; color:green; float: right;}
 h6 {font-size: 16px; color:red; float:right;}
 
@@ -38,7 +70,7 @@ select#soflow {
    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);}
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
+input[type=text]{
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -56,7 +88,7 @@ input[type=text]:focus, input[type=password]:focus {
   width: 20%;
   float: right;
   margin-right: 40px;
-  border-radius:20px;
+  border-radius:10px;
   min-width: 180px;
 }
 
@@ -64,9 +96,14 @@ input[type=text]:focus, input[type=password]:focus {
   width: 20%;
   float: left;
   margin-left: 10px;
-  background-color: #ffbb60;
-  border-radius:10px;
+  background-color: #000;
+  border-radius:5px;
   min-width: 180px;
+}
+
+.createbtn{
+  background-color: #000;
+  border-radius:5px;
 }
 
 /* Float cancel and signup buttons and add an equal width */
@@ -133,6 +170,12 @@ hr {
     clear: both;
     display: table;
 }
+input[type='password']{
+    width: 10%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
@@ -153,7 +196,7 @@ and is wrapped around the whole page content, except for the footer in this exam
   <p>View, join and create events.</p>
 
   <div class="w3-col m8 s12">
-    <p><button class="w3-button w3-padding-large w3-white w3-border" onclick= "document.getElementById('id01').style.display='block'"><b>CREATE EVENT</b></button></p>
+    <p><button class="w3-button w3-padding-large w3-white w3-border createbtn" onclick= "document.getElementById('id01').style.display='block'"><b>CREATE EVENT</b></button></p>
   </div>
 </header>
 
@@ -186,6 +229,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         <input type="checkbox" name="groupme" style="margin-bottom:15px"> Deploy GroupMe bot
       </label>
       <hr>
+      <input type="hidden" name="post_type" value="create">
       <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
         <button type="submit" class="signupbtn">Create</button>
@@ -213,7 +257,7 @@ window.onclick = function(event) {
 <!-- Blog entries -->
 <div class="w3-col l8 s12">
   <!-- Blog entry -->
-  <div class="w3-card-4 w3-margin w3-white">
+  <!-- <div class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
       <br>
       <h3><b>TITLE HEADING</b></h3>
@@ -226,36 +270,18 @@ window.onclick = function(event) {
       <div class="w3-row">
         <div class="w3-col m8 s12">
           <button class="w3-button w3-padding-large w3-white w3-border attendingbtn" onclick= "document.getElementById('attendingmodal').style.display='block'" ><b>View Attending</b></button>
-          <button class="w3-button w3-padding-large w3-white w3-border joinbtn" onclick= "document.getElementById('joinmodal').style.display='block'"><h3><b>JOIN »</b></h3></button>
+          <button class="w3-button w3-padding-large w3-white w3-border joinbtn" onclick= "document.getElementById('314_join_modal').style.display='block'"><h3><b>JOIN »</b></h3></button>
         </div>
 
           <p><h4>2 car seats open</h4></p>
 
       </div>
     </div>
-  </div>
+  </div> -->
+
 
   <!-- Blog entry -->
-  <div class="w3-card-4 w3-margin w3-white">
-  <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
-    <div class="w3-container">
-      <h3><b>BLOG ENTRY</b></h3>
-      <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
-    </div>
-
-    <div class="w3-container">
-      <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      <div class="w3-row">
-        <div class="w3-col m8 s12">
-          <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
-        </div>
-        <div class="w3-col m4 w3-hide-small">
-          <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-badge">2</span></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
+  {{panels | safe}}
 <!-- END BLOG ENTRIES -->
 </div>
 
@@ -267,90 +293,36 @@ window.onclick = function(event) {
 <!-- END w3-content -->
 </div>
 
-<div id="joinmodal" class="modal">
-  <span onclick="document.getElementById('joinmodal').style.display='none'" class="close" title="Cancel">&times;</span>
-  <form class="modal-content" action="{{ url_for('home') }}" method=POST>
-    <div class="container">
-      <h1>Join Event</h1>
-      <hr>
-      <label for="Name"><b>Name</b></label>
-      <input type="text" placeholder="Enter Name" name="name" required>
+{{join_modals | safe }}
 
-      <label for="Name"><b><i class="fa fa-car" aria-hidden="true"></i> </b></label>
-      <select id = 'soflow' name="car">
-        <option value="True">I have a car.</option>
-        <option value="False">I don't have a car.</option>
-      </select>
-      <label for="extra_seats"><b> Seats Open</b></label>
-      <select name="extra_seats">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-      </select>
-      <br><br>
-      <label for="comment"><b>Comment</b></label>
-      <input type="text" placeholder="Max 50 characters" name="description" maxlength="50">
-
-      <hr>
-      <label>
-        <input type="checkbox" name="need-ride" style="margin-bottom:15px"> I need a ride.
-
-      <hr>
-    <input type="hidden" name="post_title" value="This work????">
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('joinmodal').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Join</button>
-      </div>
-    </div>
-  </form>
-</div>
-
-<div id="attendingmodal" class="modal">
-  <span onclick="document.getElementById('attendingmodal').style.display='none'" class="close" title="Cancel">&times;</span>
-  <form class="modal-content" action="{{ url_for('home') }}" method=POST>
-    <div class="container">
-      <h1>Attending</h1>
-      <hr>
-
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Car?</th>
-          <th>Extra Seats</th>
-          <th>Comments</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td><i class="fa fa-car" aria-hidden="true"></i></td>
-          <td>Germany</td>
-          <td>This is a long comment bwahahahsdsssdsd</td>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td><i class="fa fa-car" aria-hidden="true"></i></td>
-          <td>Germany</td>
-          <td></td>
-        </tr>
-      </table>
+{{attending_modals | safe }}
 
 
-      <hr>
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('attendingmodal').style.display='none'" class="cancelbtn">Cancel</button>
-      </div>
-    </div>
-  </form>
-</div>
 
 <!-- Footer -->
 <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
-  <button class="w3-button w3-black w3-padding-large w3-margin-bottom">ADMIN ACCESS</button>
+  <button class="w3-button w3-black w3-padding-large w3-margin-bottom" onclick= "document.getElementById('admin').style.display='block'" >ADMIN ACCESS</button>
+  <p><a href="https://goo.gl/forms/keAlvYuoboK5gD6N2">Give website feedback.</a></p>
 </footer>
+
+<div id="admin" class="modal">
+  <span onclick="document.getElementById('admin').style.display='none'" class="close" title="Cancel">&times;</span>
+  <form class="modal-content" action="{{ url_for('admin') }}" method=POST>
+    <div class="container">
+      <h1>PASSWORD</h1>
+      <hr>
+      <input type="password" name = "password">
+      <hr>
+      <input type="hidden" name="post_type" value="admin">
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('admin').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn">LOG IN</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
 
 </body>
 </html>
